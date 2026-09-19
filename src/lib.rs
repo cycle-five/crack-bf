@@ -1,7 +1,5 @@
 use std::io::{BufRead, Write};
-use tokio::io::{
-    AsyncBufRead, AsyncWrite, {AsyncBufReadExt, AsyncWriteExt},
-};
+use tokio::io::{AsyncBufRead, AsyncBufReadExt, AsyncWrite, AsyncWriteExt};
 pub type Error = Box<dyn std::error::Error + Send + Sync>;
 
 /// Representation of a brainfuck program.
@@ -201,8 +199,7 @@ impl BrainfuckProgram {
 mod tests {
     use super::*;
 
-    use std::io::BufReader;
-    use std::io::Cursor;
+    use std::io::{BufReader, Cursor};
 
     #[test]
     fn test_hello_world_cursor() {
@@ -243,13 +240,13 @@ mod tests {
         let input = Cursor::new(input_data);
         let mut output = Cursor::new(vec![]);
 
-        let res = bf.run_async(input, &mut output).await;
+        let res = Box::pin(bf.run_async(input, &mut output)).await;
         match res {
-            Ok(n) => println!("Wooooo! {}", n),
+            Ok(n) => println!("Wooooo! {n}"),
             Err(_) => {
                 println!("Boooo!");
             },
-        };
+        }
 
         let result = String::from_utf8(output.into_inner()).unwrap();
         println!("{}", result.clone());
@@ -261,8 +258,7 @@ mod tests {
         let program = r"
             ++++++++++[>+++++++>++++++++++>+++>+<<<<-]>++.>+.+++++++..+++.>++.<<+++++++++++++++.>.+++.------.--------.>+.>.
         ";
-        let stdio = std::io::stdin();
-        let stdin = stdio.lock();
+        let stdin = std::io::stdin().lock();
         let stdout = std::io::stdout();
         let mut bf = BrainfuckProgram::new(program);
         bf.run(stdin, stdout)
@@ -292,7 +288,7 @@ mod tests {
         let output = Cursor::new(vec![]);
 
         let mut bf = BrainfuckProgram::new(program);
-        bf.run_async(input, output)
+        Box::pin(bf.run_async(input, output))
             .await
             .expect("brainfuck program failed to run");
     }

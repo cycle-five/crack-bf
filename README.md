@@ -3,6 +3,16 @@
 A Brainfuck interpreter, used by [cracktunes](https://github.com/cycle-five/cracktunes)'
 `/bf` command.
 
+## wtf?
+
+Brainfuck is an esolang which has incredibly simple semantics and even more terse syntax.
+The result is an entirely human-unreadable source code, and a great toy language for students
+studying compilers to implement as a first interpreter. Hello world can be implemented thusly.
+
+```brainfuck
+++++++++++[>+++++++>++++++++++>+++>+<<<<-]>++.>+.+++++++..+++.>++.<<+++++++++++++++.>.+++.------.--------.>+.>.
+```
+
 ## The command wrapper lives elsewhere
 
 The poise command wrapper for `/bf` lives in cracktunes itself, at
@@ -16,6 +26,7 @@ crack-core or any Discord/poise types.
 
 ```bash
 cargo build
+cargo clippy --all-targets -- -D clippy::pedantic
 cargo test
 ```
 
