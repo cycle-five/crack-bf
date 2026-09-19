@@ -6,18 +6,19 @@ authors = ["Cycle Five <cycle.five@proton.me>"]
 publish = true
 license = "MIT"
 description = "Brainfuck interpreter for cracktunes."
+# 🪤 crates.io caps this at FIVE keywords, each ASCII alphanumeric plus
+# `_`/`-`/`+` and at most 20 characters -- no spaces. `cargo package` does not
+# check either rule; the rejection only arrives at `cargo publish`, and
+# `publish = true` above means that day will come.
 keywords = [
-  "music",
-  "discord",
-  "bot",
-  "cracktunes",
+  "brainfuck",
   "esolang",
   "interpreter",
   "compiler",
-  "brainfuck",
-  "programming language",
+  "discord",
 ]
-categories = ["category"]
+# Must be a real crates.io category slug, likewise unvalidated until publish.
+categories = ["compilers"]
 homepage = "https://cracktun.es/"
 repository = "https://github.com/cycle-five/crack-bf"
 

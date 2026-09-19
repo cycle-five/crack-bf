@@ -26,7 +26,8 @@ crack-core or any Discord/poise types.
 
 ```bash
 cargo build
-cargo clippy --all-targets -- -D clippy::pedantic
+cargo +nightly fmt --all -- --check
+cargo clippy --all-targets -- -D warnings -D clippy::pedantic
 cargo test
 ```
 
